@@ -107,12 +107,12 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
             <div
               className="absolute pointer-events-none"
               style={{
-                left: tabStyle.left - 12,
-                width: tabStyle.width + 24,
-                top: -8,
-                height: 180,
+                left: tabStyle.left - 8,
+                width: tabStyle.width + 16,
+                top: -6,
+                bottom: -32,
                 background: CONTAINER_BG,
-                borderRadius: '45px 45px 0 0',
+                borderRadius: '32px 32px 0 0',
                 borderLeft: `1px solid ${PILL_BORDER}`,
                 borderRight: `1px solid ${PILL_BORDER}`,
                 borderTop: `1px solid ${PILL_BORDER}`,
@@ -134,14 +134,14 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
             <button
               ref={setButtonRef('_all')}
               onClick={() => onSelectArtist(null)}
-            className="flex flex-col items-center flex-shrink-0 min-w-[56px] sm:min-w-[64px]"
-            >
-              <div
-                className={`rounded-full flex items-center justify-center text-[11px] font-sans font-bold text-truffle border-2 transition-all duration-300 ease-out ${
-                  !selectedArtist
-                    ? 'w-14 h-14 sm:w-16 sm:h-16 border-bronze/40 shadow-md'
-                    : 'w-11 h-11 sm:w-12 sm:h-12 border-transparent opacity-50'
-                }`}
+            className="flex flex-col items-center flex-shrink-0 min-w-[48px] sm:min-w-[56px]"
+             >
+               <div
+                 className={`rounded-2xl flex items-center justify-center text-[11px] font-sans font-bold text-truffle border-2 transition-all duration-300 ease-out ${
+                   !selectedArtist
+                     ? 'w-12 h-12 sm:w-14 sm:h-14 border-bronze/40 shadow-md'
+                     : 'w-10 h-10 sm:w-11 sm:h-11 border-transparent opacity-50'
+                 }`}
                 style={{
                   background: CONTAINER_BG,
                   ...((!selectedArtist && isJiggling) ? { animation: 'jelly 0.55s ease', transformOrigin: 'bottom center' } : {}),
@@ -158,14 +158,14 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
                   key={artist.id}
                   ref={setButtonRef(artist.id)}
                   onClick={() => onSelectArtist(isSelected ? null : artist.id)}
-                  className="flex flex-col items-center flex-shrink-0 min-w-[56px] sm:min-w-[64px]"
+                  className="flex flex-col items-center flex-shrink-0 min-w-[48px] sm:min-w-[56px]"
                 >
                   <div
-                    className={`rounded-full overflow-hidden border-2 transition-all duration-300 ease-out ${
-                      isSelected
-                        ? 'w-14 h-14 sm:w-16 sm:h-16 border-bronze/40 shadow-md'
-                        : 'w-11 h-11 sm:w-12 sm:h-12 border-transparent opacity-50'
-                    }`}
+                     className={`rounded-2xl overflow-hidden border-2 transition-all duration-300 ease-out ${
+                       isSelected
+                         ? 'w-12 h-12 sm:w-14 sm:h-14 border-bronze/40 shadow-md'
+                         : 'w-10 h-10 sm:w-11 sm:h-11 border-transparent opacity-50'
+                     }`}
                     style={isSelected && isJiggling ? { animation: 'jelly 0.55s ease', transformOrigin: 'bottom center' } : undefined}
                   >
                     <img src={artist.avatar} alt={artist.name} className="w-full h-full object-cover" />
