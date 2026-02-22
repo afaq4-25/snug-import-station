@@ -69,14 +69,14 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
             className="flex flex-col items-center flex-shrink-0"
           >
             <div
-              className={`rounded-2xl flex items-center justify-center text-[11px] font-sans font-bold text-truffle transition-all duration-300 ease-out ${
+              className={`rounded-xl flex items-center justify-center font-sans font-bold text-truffle transition-all duration-300 ease-out ${
                 !selectedArtist
-                  ? 'w-11 h-11 sm:w-13 sm:h-13 ring-2 ring-bronze/50 shadow-md scale-105'
-                  : 'w-9 h-9 sm:w-11 sm:h-11 opacity-50'
+                  ? 'w-14 h-14 sm:w-16 sm:h-16 text-xs ring-2 ring-bronze/50 shadow-md'
+                  : 'w-12 h-12 sm:w-14 sm:h-14 text-[11px] opacity-50'
               }`}
               style={{
                 background: CONTAINER_BG,
-                border: `1px solid ${!selectedArtist ? MUTED_BRONZE : PILL_BORDER}`,
+                border: `1.5px solid ${!selectedArtist ? MUTED_BRONZE : PILL_BORDER}`,
                 ...((!selectedArtist && isJiggling) ? { animation: 'jelly 0.55s ease', transformOrigin: 'bottom center' } : {}),
               }}
             >
@@ -96,10 +96,10 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
                 className="flex flex-col items-center flex-shrink-0"
               >
                 <div
-                  className={`rounded-2xl overflow-hidden transition-all duration-300 ease-out ${
+                  className={`rounded-xl overflow-hidden transition-all duration-300 ease-out ${
                     isSelected
-                      ? 'w-11 h-11 sm:w-13 sm:h-13 ring-2 ring-bronze/50 shadow-md scale-105'
-                      : 'w-9 h-9 sm:w-11 sm:h-11 opacity-50'
+                      ? 'w-14 h-14 sm:w-16 sm:h-16 ring-2 ring-bronze/50 shadow-md'
+                      : 'w-12 h-12 sm:w-14 sm:h-14 opacity-50'
                   }`}
                   style={{
                     border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? MUTED_BRONZE : PILL_BORDER}`,
