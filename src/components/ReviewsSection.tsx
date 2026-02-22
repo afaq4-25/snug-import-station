@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Star, CheckCircle2 } from 'lucide-react';
 import type { Artist, Review } from '@/types/salon';
 
@@ -9,21 +9,16 @@ interface ReviewsSectionProps {
   onSelectArtist: (id: string | null) => void;
 }
 
-const PAGE_BG = '#F2ECE7';
 const CONTAINER_BG = '#F8F1E9';
 const PILL_BORDER = '#E8DED6';
 const MUTED_TAUPE = '#9C918C';
 const MUTED_BRONZE = '#9A7B6D';
 const EMPTY_STAR = '#E8DED6';
+const PAGE_BG = '#F2ECE7';
 
 const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: ReviewsSectionProps) => {
-  const [reviewFilter, setReviewFilter] = useState<string>('all');
+  const [reviewFilter] = useState<string>('all');
   const [isJiggling, setIsJiggling] = useState(false);
-  const [tabStyle, setTabStyle] = useState<{ left: number; width: number } | null>(null);
-
-  const artistRowRef = useRef<HTMLDivElement>(null);
-  const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const filteredReviews = reviews.filter((r) => {
     if (selectedArtist && r.artistId !== selectedArtist) return false;
@@ -44,47 +39,11 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
     'https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?w=300&h=300&fit=crop',
   ];
 
-  const updateTabPosition = useCallback(() => {
-    const key = selectedArtist ?? '_all';
-    const btn = buttonRefs.current.get(key);
-    const row = artistRowRef.current;
-    if (!btn || !row) return;
-
-    const rowRect = row.getBoundingClientRect();
-    const btnRect = btn.getBoundingClientRect();
-
-    setTabStyle({
-      left: btnRect.left - rowRect.left,
-      width: btnRect.width,
-    });
-  }, [selectedArtist]);
-
-  useEffect(() => {
-    updateTabPosition();
-    window.addEventListener('resize', updateTabPosition);
-    return () => window.removeEventListener('resize', updateTabPosition);
-  }, [updateTabPosition]);
-
   useEffect(() => {
     setIsJiggling(true);
     const timer = setTimeout(() => setIsJiggling(false), 700);
     return () => clearTimeout(timer);
   }, [selectedArtist]);
-
-  // Scroll selected artist into view
-  useEffect(() => {
-    const key = selectedArtist ?? '_all';
-    const btn = buttonRefs.current.get(key);
-    if (btn) {
-      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      setTimeout(updateTabPosition, 350);
-    }
-  }, [selectedArtist, updateTabPosition]);
-
-  const setButtonRef = (key: string) => (el: HTMLButtonElement | null) => {
-    if (el) buttonRefs.current.set(key, el);
-    else buttonRefs.current.delete(key);
-  };
 
   return (
     <div className="animate-fade-in-up" style={{ animationDuration: '300ms', background: PAGE_BG }}>
@@ -100,93 +59,72 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
           </button>
         </div>
 
-        {/* Artist Selector */}
-        <div className="relative" ref={artistRowRef}>
-          {/* Jelly Pill — z-10, behind avatars (z-20) */}
-          {tabStyle && (
-            <div
-              className="absolute pointer-events-none"
-              style={{
-                left: tabStyle.left - 8,
-                width: tabStyle.width + 16,
-                top: -6,
-                bottom: -32,
-                background: CONTAINER_BG,
-                borderRadius: '32px 32px 0 0',
-                borderLeft: `1px solid ${PILL_BORDER}`,
-                borderRight: `1px solid ${PILL_BORDER}`,
-                borderTop: `1px solid ${PILL_BORDER}`,
-                borderBottom: 'none',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.04)',
-                transition: 'left 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                animation: isJiggling ? 'jelly 0.55s ease' : 'none',
-                transformOrigin: 'bottom center',
-                zIndex: 10,
-              }}
-            />
-          )}
-
-          {/* Artists Row — scrollable, z-20, above pill */}
-          <div
-            className="flex overflow-x-auto scrollbar-hide pb-4 items-end gap-1 relative"
-            style={{ zIndex: 20 }}
+        {/* Artist Selector — horizontally scrollable */}
+        <div
+          className="flex overflow-x-auto scrollbar-hide pb-3 items-end gap-3"
+        >
+          {/* All button */}
+          <button
+            onClick={() => onSelectArtist(null)}
+            className="flex flex-col items-center flex-shrink-0"
           >
-            <button
-              ref={setButtonRef('_all')}
-              onClick={() => onSelectArtist(null)}
-            className="flex flex-col items-center flex-shrink-0 min-w-[48px] sm:min-w-[56px]"
-             >
-               <div
-                 className={`rounded-2xl flex items-center justify-center text-[11px] font-sans font-bold text-truffle border-2 transition-all duration-300 ease-out ${
-                   !selectedArtist
-                     ? 'w-12 h-12 sm:w-14 sm:h-14 border-bronze/40 shadow-md'
-                     : 'w-10 h-10 sm:w-11 sm:h-11 border-transparent opacity-50'
-                 }`}
-                style={{
-                  background: CONTAINER_BG,
-                  ...((!selectedArtist && isJiggling) ? { animation: 'jelly 0.55s ease', transformOrigin: 'bottom center' } : {}),
-                }}
-              >
-                ALL
-              </div>
-            </button>
+            <div
+              className={`rounded-2xl flex items-center justify-center text-[11px] font-sans font-bold text-truffle transition-all duration-300 ease-out ${
+                !selectedArtist
+                  ? 'w-11 h-11 sm:w-13 sm:h-13 ring-2 ring-bronze/50 shadow-md scale-105'
+                  : 'w-9 h-9 sm:w-11 sm:h-11 opacity-50'
+              }`}
+              style={{
+                background: CONTAINER_BG,
+                border: `1px solid ${!selectedArtist ? MUTED_BRONZE : PILL_BORDER}`,
+                ...((!selectedArtist && isJiggling) ? { animation: 'jelly 0.55s ease', transformOrigin: 'bottom center' } : {}),
+              }}
+            >
+              ALL
+            </div>
+            {!selectedArtist && (
+              <div className="w-1.5 h-1.5 rounded-full mt-1.5" style={{ background: MUTED_BRONZE }} />
+            )}
+          </button>
 
-            {artists.map((artist) => {
-              const isSelected = selectedArtist === artist.id;
-              return (
-                <button
-                  key={artist.id}
-                  ref={setButtonRef(artist.id)}
-                  onClick={() => onSelectArtist(isSelected ? null : artist.id)}
-                  className="flex flex-col items-center flex-shrink-0 min-w-[48px] sm:min-w-[56px]"
+          {artists.map((artist) => {
+            const isSelected = selectedArtist === artist.id;
+            return (
+              <button
+                key={artist.id}
+                onClick={() => onSelectArtist(isSelected ? null : artist.id)}
+                className="flex flex-col items-center flex-shrink-0"
+              >
+                <div
+                  className={`rounded-2xl overflow-hidden transition-all duration-300 ease-out ${
+                    isSelected
+                      ? 'w-11 h-11 sm:w-13 sm:h-13 ring-2 ring-bronze/50 shadow-md scale-105'
+                      : 'w-9 h-9 sm:w-11 sm:h-11 opacity-50'
+                  }`}
+                  style={{
+                    border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? MUTED_BRONZE : PILL_BORDER}`,
+                    ...(isSelected && isJiggling ? { animation: 'jelly 0.55s ease', transformOrigin: 'bottom center' } : {}),
+                  }}
                 >
-                  <div
-                     className={`rounded-2xl overflow-hidden border-2 transition-all duration-300 ease-out ${
-                       isSelected
-                         ? 'w-12 h-12 sm:w-14 sm:h-14 border-bronze/40 shadow-md'
-                         : 'w-10 h-10 sm:w-11 sm:h-11 border-transparent opacity-50'
-                     }`}
-                    style={isSelected && isJiggling ? { animation: 'jelly 0.55s ease', transformOrigin: 'bottom center' } : undefined}
-                  >
-                    <img src={artist.avatar} alt={artist.name} className="w-full h-full object-cover" />
-                  </div>
-                </button>
-              );
-            })}
-          </div>
+                  <img src={artist.avatar} alt={artist.name} className="w-full h-full object-cover" />
+                </div>
+                {isSelected && (
+                  <div className="w-1.5 h-1.5 rounded-full mt-1.5" style={{ background: MUTED_BRONZE }} />
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Reviews Container — z-20, negative margin overlaps pill seamlessly */}
+      {/* Unified Reviews Container — single bordered card */}
       <div
-        ref={containerRef}
-        className="mx-3 relative"
+        className="mx-3 mb-4"
         style={{
-          marginTop: -32,
-          zIndex: 20,
           background: CONTAINER_BG,
           borderRadius: '1.25rem',
-          padding: '2px',
+          border: `1px solid ${PILL_BORDER}`,
+          boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
           animation: isJiggling ? 'jelly-container 0.5s ease' : 'none',
           transformOrigin: 'top center',
         }}
@@ -196,8 +134,8 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
           {currentArtist ? (
             <div className="flex items-center gap-3 mb-3">
               <div
-                className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0 border"
-                style={{ borderColor: PILL_BORDER }}
+                className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0"
+                style={{ border: `1px solid ${PILL_BORDER}` }}
               >
                 <img src={currentArtist.avatar} alt={currentArtist.name} className="w-full h-full object-cover" />
               </div>
