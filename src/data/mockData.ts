@@ -4,14 +4,19 @@ import salon3 from '@/assets/salon-3.jpg';
 import type { Salon, Service, Artist, Review, Booking, Category } from '@/types/salon';
 
 export const categories: Category[] = [
-  { id: '1', name: 'Haircut', image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=120&h=120&fit=crop' },
-  { id: '2', name: 'Skin Care', image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=120&h=120&fit=crop' },
-  { id: '3', name: 'Hair Color', image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=120&h=120&fit=crop' },
-  { id: '4', name: 'Manicure', image: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=120&h=120&fit=crop' },
-  { id: '5', name: 'Bridal', image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=120&h=120&fit=crop' },
-  { id: '6', name: 'Massage', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=120&h=120&fit=crop' },
-  { id: '7', name: 'Pedicure', image: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=120&h=120&fit=crop' },
-  { id: '8', name: 'Spa', image: 'https://images.unsplash.com/photo-1540555700478-4be289fbec6d?w=120&h=120&fit=crop' },
+  { id: 'm1', name: 'Haircut', image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=120&h=120&fit=crop', gender: 'male' },
+  { id: 'm2', name: 'Beard Trim', image: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=120&h=120&fit=crop', gender: 'male' },
+  { id: 'm3', name: 'Hair Color', image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=120&h=120&fit=crop', gender: 'male' },
+  { id: 'm4', name: 'Facial', image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=120&h=120&fit=crop', gender: 'male' },
+  { id: 'm5', name: 'Massage', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=120&h=120&fit=crop', gender: 'male' },
+  { id: 'm6', name: 'Spa', image: 'https://images.unsplash.com/photo-1540555700478-4be289fbec6d?w=120&h=120&fit=crop', gender: 'male' },
+  { id: 'f1', name: 'Hair Spa', image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=120&h=120&fit=crop', gender: 'female' },
+  { id: 'f2', name: 'Bridal', image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=120&h=120&fit=crop', gender: 'female' },
+  { id: 'f3', name: 'Manicure', image: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=120&h=120&fit=crop', gender: 'female' },
+  { id: 'f4', name: 'Pedicure', image: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=120&h=120&fit=crop', gender: 'female' },
+  { id: 'f5', name: 'Skin Care', image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=120&h=120&fit=crop', gender: 'female' },
+  { id: 'f6', name: 'Hair Color', image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=120&h=120&fit=crop', gender: 'female' },
+  { id: 'f7', name: 'Threading', image: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=120&h=120&fit=crop', gender: 'female' },
 ];
 
 export const featuredSalons: Salon[] = [

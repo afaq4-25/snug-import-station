@@ -91,6 +91,48 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
+  :root[data-gender="male"]:not(.dark) {
+    --background: 210 15% 93%;
+    --foreground: 210 30% 13%;
+    --card: 210 18% 97%;
+    --card-foreground: 210 30% 13%;
+    --primary: 210 50% 30%;
+    --primary-foreground: 210 30% 97%;
+    --secondary: 210 18% 89%;
+    --secondary-foreground: 210 30% 13%;
+    --muted: 210 12% 91%;
+    --muted-foreground: 210 12% 46%;
+    --accent: 180 40% 48%;
+    --accent-foreground: 210 30% 13%;
+    --border: 210 12% 87%;
+    --input: 210 12% 87%;
+    --ring: 210 50% 30%;
+    --champagne: 210 20% 94%;
+    --bronze: 210 18% 48%;
+    --truffle: 210 25% 14%;
+  }
+
+  :root[data-gender="female"]:not(.dark) {
+    --background: 340 16% 94%;
+    --foreground: 340 28% 14%;
+    --card: 340 20% 98%;
+    --card-foreground: 340 28% 14%;
+    --primary: 340 42% 33%;
+    --primary-foreground: 340 25% 97%;
+    --secondary: 340 18% 91%;
+    --secondary-foreground: 340 28% 14%;
+    --muted: 340 12% 92%;
+    --muted-foreground: 340 10% 47%;
+    --accent: 10 50% 65%;
+    --accent-foreground: 340 28% 14%;
+    --border: 340 14% 88%;
+    --input: 340 14% 88%;
+    --ring: 340 42% 33%;
+    --champagne: 340 20% 94%;
+    --bronze: 340 18% 48%;
+    --truffle: 340 25% 14%;
+  }
 }
 
 @layer base {
