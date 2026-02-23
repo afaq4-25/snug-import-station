@@ -9,23 +9,11 @@ interface ReviewsSectionProps {
   onSelectArtist: (id: string | null) => void;
 }
 
-const CONTAINER_BG = '#F8F1E9';
-const PILL_BORDER = '#E8DED6';
-const MUTED_TAUPE = '#9C918C';
-const MUTED_BRONZE = '#9A7B6D';
-const EMPTY_STAR = '#E8DED6';
-const PAGE_BG = '#F2ECE7';
-
 const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: ReviewsSectionProps) => {
-  const [reviewFilter] = useState<string>('all');
   const [isJiggling, setIsJiggling] = useState(false);
 
   const filteredReviews = reviews.filter((r) => {
     if (selectedArtist && r.artistId !== selectedArtist) return false;
-    if (reviewFilter === 'all') return true;
-    if (reviewFilter === '5') return r.rating === 5;
-    if (reviewFilter === '4') return r.rating >= 4;
-    if (reviewFilter === 'photos') return r.hasPhoto;
     return true;
   });
 
@@ -46,45 +34,34 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
   }, [selectedArtist]);
 
   return (
-    <div className="animate-fade-in-up" style={{ animationDuration: '300ms', background: PAGE_BG }}>
+    <div className="animate-fade-in-up bg-background" style={{ animationDuration: '300ms' }}>
       {/* Our Stylists Header */}
       <div className="px-5 pt-5 pb-1">
-        <div className="flex items-baseline justify-between mb-5">
-          <h2 className="font-serif text-xl text-truffle italic">Our Stylists</h2>
-          <button
-            className="text-[11px] font-sans font-semibold uppercase tracking-widest"
-            style={{ color: MUTED_TAUPE }}
-          >
+        <div className="flex items-baseline justify-between mb-4">
+          <h2 className="font-serif text-xl text-foreground italic">Our Stylists</h2>
+          <button className="text-[11px] font-sans font-semibold uppercase tracking-widest text-muted-foreground">
             View All
           </button>
         </div>
 
-        {/* Artist Selector — horizontally scrollable */}
-        <div
-          className="flex overflow-x-auto scrollbar-hide pb-3 items-end gap-3"
-        >
-          {/* All button */}
+        {/* Artist Selector */}
+        <div className="flex overflow-x-auto scrollbar-hide pb-3 items-end gap-4">
           <button
             onClick={() => onSelectArtist(null)}
-            className="flex flex-col items-center flex-shrink-0"
+            className="flex flex-col items-center flex-shrink-0 gap-1.5"
           >
             <div
-              className={`rounded-xl flex items-center justify-center font-sans font-bold text-truffle transition-all duration-300 ease-out ${
+              className={`rounded-xl flex items-center justify-center font-sans font-bold text-foreground transition-all duration-300 ease-out ${
                 !selectedArtist
-                  ? 'w-14 h-14 sm:w-16 sm:h-16 text-xs ring-2 ring-bronze/50 shadow-md'
-                  : 'w-12 h-12 sm:w-14 sm:h-14 text-[11px] opacity-50'
+                  ? 'w-16 h-16 sm:w-20 sm:h-20 text-sm ring-2 ring-accent/50 shadow-md bg-secondary'
+                  : 'w-14 h-14 sm:w-16 sm:h-16 text-xs bg-card border border-border'
               }`}
-              style={{
-                background: CONTAINER_BG,
-                border: `1.5px solid ${!selectedArtist ? MUTED_BRONZE : PILL_BORDER}`,
-                ...((!selectedArtist && isJiggling) ? { animation: 'jelly 0.55s ease', transformOrigin: 'bottom center' } : {}),
-              }}
+              style={!selectedArtist && isJiggling ? { animation: 'jelly 0.55s ease', transformOrigin: 'bottom center' } : undefined}
             >
               ALL
             </div>
-            {!selectedArtist && (
-              <div className="w-1.5 h-1.5 rounded-full mt-1.5" style={{ background: MUTED_BRONZE }} />
-            )}
+            <span className={`text-[11px] font-body ${!selectedArtist ? 'text-primary font-medium' : 'text-muted-foreground'}`}>All</span>
+            {!selectedArtist && <div className="w-1.5 h-1.5 rounded-full bg-accent -mt-0.5" />}
           </button>
 
           {artists.map((artist) => {
@@ -93,163 +70,120 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
               <button
                 key={artist.id}
                 onClick={() => onSelectArtist(isSelected ? null : artist.id)}
-                className="flex flex-col items-center flex-shrink-0"
+                className="flex flex-col items-center flex-shrink-0 gap-1.5"
               >
                 <div
                   className={`rounded-xl overflow-hidden transition-all duration-300 ease-out ${
                     isSelected
-                      ? 'w-14 h-14 sm:w-16 sm:h-16 ring-2 ring-bronze/50 shadow-md'
-                      : 'w-12 h-12 sm:w-14 sm:h-14 opacity-50'
+                      ? 'w-16 h-16 sm:w-20 sm:h-20 ring-2 ring-accent/50 shadow-md'
+                      : 'w-14 h-14 sm:w-16 sm:h-16 border border-border'
                   }`}
-                  style={{
-                    border: `${isSelected ? '2px' : '1px'} solid ${isSelected ? MUTED_BRONZE : PILL_BORDER}`,
-                    ...(isSelected && isJiggling ? { animation: 'jelly 0.55s ease', transformOrigin: 'bottom center' } : {}),
-                  }}
+                  style={isSelected && isJiggling ? { animation: 'jelly 0.55s ease', transformOrigin: 'bottom center' } : undefined}
                 >
                   <img src={artist.avatar} alt={artist.name} className="w-full h-full object-cover" />
                 </div>
-                {isSelected && (
-                  <div className="w-1.5 h-1.5 rounded-full mt-1.5" style={{ background: MUTED_BRONZE }} />
-                )}
+                <span className={`text-[11px] font-body whitespace-nowrap ${isSelected ? 'text-primary font-medium' : 'text-muted-foreground'}`}>{artist.name}</span>
+                {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-accent -mt-0.5" />}
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Unified Reviews Container — single bordered card */}
+      {/* Reviews Container */}
       <div
-        className="mx-3 mb-4"
+        className="mx-3 mb-4 bg-card rounded-2xl border border-border card-shadow"
         style={{
-          background: CONTAINER_BG,
-          borderRadius: '1.25rem',
-          border: `1px solid ${PILL_BORDER}`,
-          boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
           animation: isJiggling ? 'jelly-container 0.5s ease' : 'none',
           transformOrigin: 'top center',
         }}
       >
-        {/* Artist Info Bar + Reviews Header */}
         <div className="px-5 pt-5 pb-3">
-          {currentArtist ? (
-            <div className="flex items-center gap-3 mb-3">
-              <div
-                className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0"
-                style={{ border: `1px solid ${PILL_BORDER}` }}
-              >
+          {currentArtist && (
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden flex-shrink-0 border border-border">
                 <img src={currentArtist.avatar} alt={currentArtist.name} className="w-full h-full object-cover" />
               </div>
               <div className="flex-1 min-w-0">
-                <span className="font-sans font-bold text-[15px] block truncate" style={{ color: '#2C1E1A' }}>
+                <span className="font-sans font-bold text-base block truncate text-foreground">
                   {currentArtist.name}
                 </span>
-                <div className="flex items-center gap-1 mt-0.5">
+                <p className="text-xs font-body text-muted-foreground mt-0.5">{currentArtist.specialty}</p>
+                <div className="flex items-center gap-1 mt-1.5">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
-                      size={11}
-                      style={
-                        i < Math.round(Number(avgRating))
-                          ? { color: MUTED_BRONZE, fill: MUTED_BRONZE }
-                          : { color: EMPTY_STAR, fill: EMPTY_STAR }
-                      }
+                      size={14}
+                      className={i < Math.round(Number(avgRating)) ? 'text-accent fill-accent' : 'text-border fill-border'}
                     />
                   ))}
-                  <span className="text-[11px] font-sans font-semibold ml-1" style={{ color: MUTED_BRONZE }}>
-                    {avgRating}
-                  </span>
+                  <span className="text-sm font-sans font-semibold ml-1 text-accent">{avgRating}</span>
                 </div>
               </div>
             </div>
-          ) : null}
+          )}
+
           <div className="flex items-center justify-between">
-            <h3 className="font-serif text-[19px]">
-              {currentArtist ? (
-                <span className="italic font-serif" style={{ color: MUTED_BRONZE }}>Reviews</span>
-              ) : (
-                <>
-                  <span className="font-bold" style={{ color: '#2C1E1A' }}>All</span>{' '}
-                  <span className="italic font-serif" style={{ color: MUTED_BRONZE }}>Reviews</span>
-                </>
-              )}
+            <h3 className="font-heading font-semibold text-base text-foreground">
+              {currentArtist ? 'Reviews' : 'All Reviews'}
             </h3>
-            <div
-              className="flex items-center gap-1.5 rounded-full px-3 py-1.5"
-              style={{ background: '#FFFFFF', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
-            >
-              <Star size={13} style={{ color: MUTED_BRONZE, fill: MUTED_BRONZE }} />
-              <span className="text-sm font-sans font-bold text-truffle">{avgRating}</span>
+            <div className="flex items-center gap-1.5 rounded-xl px-3 py-1.5 bg-secondary border border-border">
+              <Star size={13} className="text-accent fill-accent" />
+              <span className="text-sm font-sans font-bold text-foreground">{avgRating}</span>
             </div>
           </div>
         </div>
 
         {/* Review Cards */}
-        <div className="space-y-3 px-2 pb-3">
+        <div className="space-y-2 px-2 pb-3">
           {filteredReviews.map((review, index) => (
             <div
               key={review.id}
-              className="rounded-[28px] p-5"
-              style={{
-                background: '#FFFFFF',
-                boxShadow: '0 8px 30px rgb(0 0 0 / 0.04)',
-                animation: `fade-in-up 0.4s ease-out ${index * 80}ms both`,
-              }}
+              className="rounded-2xl p-4 bg-background"
+              style={{ animation: `fade-in-up 0.4s ease-out ${index * 80}ms both` }}
             >
-              <div className="flex items-start justify-between mb-3">
+              <div className="flex items-start justify-between mb-2.5">
                 <div className="flex items-center gap-3">
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-                    style={{ background: CONTAINER_BG, border: `1px solid ${PILL_BORDER}` }}
-                  >
-                    <span className="font-serif text-base font-semibold text-truffle">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-secondary border border-border">
+                    <span className="font-heading text-sm font-semibold text-foreground">
                       {review.userName.charAt(0)}
                     </span>
                   </div>
                   <div>
                     <div className="flex items-center gap-1.5">
-                      <span className="font-sans font-semibold text-[13px] text-truffle">{review.userName}</span>
-                      <CheckCircle2 size={13} style={{ color: MUTED_BRONZE }} className="fill-bronze/10" />
+                      <span className="font-sans font-semibold text-sm text-foreground">{review.userName}</span>
+                      <CheckCircle2 size={13} className="text-accent" />
                     </div>
                     <div className="flex items-center gap-0.5 mt-1">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star
                           key={i}
                           size={11}
-                          style={
-                            i < review.rating
-                              ? { color: MUTED_BRONZE, fill: MUTED_BRONZE }
-                              : { color: EMPTY_STAR, fill: EMPTY_STAR }
-                          }
+                          className={i < review.rating ? 'text-accent fill-accent' : 'text-border fill-border'}
                         />
                       ))}
                     </div>
                   </div>
                 </div>
-                <span
-                  className="text-[9px] font-sans uppercase tracking-widest whitespace-nowrap pt-1"
-                  style={{ color: MUTED_TAUPE }}
-                >
+                <span className="text-[10px] font-sans uppercase tracking-wider text-muted-foreground whitespace-nowrap pt-1">
                   {review.date}
                 </span>
               </div>
 
-              <div className="mb-3">
-                <span
-                  className="inline-block text-[9px] font-sans font-bold text-truffle uppercase tracking-widest px-3.5 py-1 rounded-full"
-                  style={{ background: CONTAINER_BG, border: `1px solid ${PILL_BORDER}` }}
-                >
+              <div className="mb-2.5">
+                <span className="inline-block text-[10px] font-sans font-semibold text-foreground uppercase tracking-wider px-3 py-1 rounded-lg bg-secondary border border-border">
                   {review.service}
                 </span>
               </div>
 
-              <p className="text-[13px] font-sans text-truffle/75 leading-relaxed italic">
+              <p className="text-sm font-body text-muted-foreground leading-relaxed">
                 "{review.text}"
               </p>
 
               {review.hasPhoto && (
                 <div className="flex gap-2 mt-3 overflow-x-auto scrollbar-hide">
                   {reviewPhotos.map((photo, i) => (
-                    <div key={i} className="w-36 h-36 flex-shrink-0 rounded-2xl overflow-hidden">
+                    <div key={i} className="w-32 h-32 flex-shrink-0 rounded-xl overflow-hidden">
                       <img src={photo} alt={`Review photo ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
                     </div>
                   ))}
@@ -260,12 +194,8 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
 
           {filteredReviews.length === 0 && (
             <div className="text-center py-14">
-              <p className="font-serif text-base italic" style={{ color: MUTED_BRONZE }}>
-                No reviews yet for this stylist...
-              </p>
-              <p className="text-[10px] font-sans mt-2 tracking-wide" style={{ color: MUTED_TAUPE }}>
-                Be the first to share your experience
-              </p>
+              <p className="font-heading text-base text-muted-foreground">No reviews yet for this stylist</p>
+              <p className="text-xs font-body mt-2 text-muted-foreground">Be the first to share your experience</p>
             </div>
           )}
         </div>

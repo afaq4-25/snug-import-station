@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import type { Salon } from '@/types/salon';
 
@@ -49,7 +49,7 @@ const FeaturedCarousel = ({ salons }: FeaturedCarouselProps) => {
             )}
 
             <div className="absolute top-3 right-3 bg-card/90 backdrop-blur-sm text-foreground text-xs font-semibold px-2 py-1 rounded-lg flex items-center gap-1">
-              ⭐ {salon.rating}
+              <Star size={12} className="text-accent fill-accent" /> {salon.rating}
             </div>
 
             <div className="absolute bottom-0 left-0 right-0 p-4">
@@ -57,7 +57,7 @@ const FeaturedCarousel = ({ salons }: FeaturedCarouselProps) => {
               <p className="text-primary-foreground/70 text-xs font-body italic">{salon.tagline}</p>
               {salon.bookingsThisWeek && (
                 <p className="text-primary-foreground/60 text-[10px] font-body mt-1">
-                  🔥 {salon.bookingsThisWeek} bookings this week
+                  {salon.bookingsThisWeek} bookings this week
                 </p>
               )}
               <button
