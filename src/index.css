@@ -1,43 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  /* ── Default (neutral) ── */
   :root {
-    --background: 30 18% 93%;
-    --foreground: 280 30% 15%;
+    --background: 30 12% 96%;
+    --foreground: 220 20% 14%;
 
-    --card: 30 20% 99%;
-    --card-foreground: 280 30% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 14%;
 
-    --popover: 30 20% 99%;
-    --popover-foreground: 280 30% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 14%;
 
-    --primary: 285 35% 28%;
-    --primary-foreground: 30 25% 97%;
+    --primary: 220 18% 22%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 32 30% 90%;
-    --secondary-foreground: 280 30% 15%;
+    --secondary: 30 10% 93%;
+    --secondary-foreground: 220 20% 14%;
 
-    --muted: 30 15% 93%;
-    --muted-foreground: 280 10% 45%;
+    --muted: 30 8% 94%;
+    --muted-foreground: 220 8% 50%;
 
-    --accent: 15 45% 72%;
-    --accent-foreground: 280 30% 15%;
+    --accent: 24 70% 58%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 60% 55%;
-    --destructive-foreground: 30 25% 97%;
+    --destructive-foreground: 0 0% 98%;
 
-    --success: 145 50% 42%;
-    --success-foreground: 30 25% 97%;
+    --success: 152 50% 42%;
+    --success-foreground: 0 0% 98%;
 
-    --border: 30 15% 88%;
-    --input: 30 15% 88%;
-    --ring: 285 35% 28%;
+    --border: 220 10% 91%;
+    --input: 220 10% 91%;
+    --ring: 220 18% 22%;
 
-    --radius: 1rem;
+    --radius: 0.875rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -48,40 +49,40 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    --font-heading: 'Poppins', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-serif: 'Playfair Display', serif;
+    --font-heading: 'DM Sans', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Plus Jakarta Sans', sans-serif;
 
     --champagne: 30 42% 94%;
     --bronze: 18 18% 51%;
     --truffle: 13 27% 14%;
 
-    --shadow-card: 0 2px 12px -2px hsl(280 20% 20% / 0.06);
-    --shadow-card-hover: 0 8px 24px -4px hsl(280 20% 20% / 0.1);
-    --shadow-bottom-bar: 0 -2px 16px -2px hsl(280 20% 20% / 0.08);
+    --shadow-card: 0 1px 8px -2px hsl(220 15% 20% / 0.06);
+    --shadow-card-hover: 0 6px 20px -4px hsl(220 15% 20% / 0.1);
+    --shadow-bottom-bar: 0 -1px 12px -2px hsl(220 15% 20% / 0.06);
   }
 
   .dark {
-    --background: 280 20% 8%;
-    --foreground: 30 15% 92%;
-    --card: 280 18% 12%;
-    --card-foreground: 30 15% 92%;
-    --popover: 280 18% 12%;
-    --popover-foreground: 30 15% 92%;
-    --primary: 285 30% 65%;
-    --primary-foreground: 280 20% 8%;
-    --secondary: 280 15% 18%;
-    --secondary-foreground: 30 15% 92%;
-    --muted: 280 12% 16%;
-    --muted-foreground: 30 10% 55%;
-    --accent: 15 40% 65%;
-    --accent-foreground: 30 15% 92%;
+    --background: 220 16% 7%;
+    --foreground: 30 10% 92%;
+    --card: 220 14% 11%;
+    --card-foreground: 30 10% 92%;
+    --popover: 220 14% 11%;
+    --popover-foreground: 30 10% 92%;
+    --primary: 220 20% 65%;
+    --primary-foreground: 220 16% 7%;
+    --secondary: 220 12% 16%;
+    --secondary-foreground: 30 10% 92%;
+    --muted: 220 10% 14%;
+    --muted-foreground: 30 6% 55%;
+    --accent: 24 60% 58%;
+    --accent-foreground: 30 10% 92%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 280 12% 20%;
-    --input: 280 12% 20%;
-    --ring: 285 30% 65%;
+    --border: 220 10% 18%;
+    --input: 220 10% 18%;
+    --ring: 220 20% 65%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -92,46 +93,48 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
+  /* ── Men: sleek, cool, navy/charcoal ── */
   :root[data-gender="male"]:not(.dark) {
-    --background: 210 15% 93%;
-    --foreground: 210 30% 13%;
-    --card: 210 18% 97%;
-    --card-foreground: 210 30% 13%;
-    --primary: 210 50% 30%;
-    --primary-foreground: 210 30% 97%;
-    --secondary: 210 18% 89%;
-    --secondary-foreground: 210 30% 13%;
-    --muted: 210 12% 91%;
-    --muted-foreground: 210 12% 46%;
-    --accent: 180 40% 48%;
-    --accent-foreground: 210 30% 13%;
-    --border: 210 12% 87%;
-    --input: 210 12% 87%;
-    --ring: 210 50% 30%;
-    --champagne: 210 20% 94%;
-    --bronze: 210 18% 48%;
-    --truffle: 210 25% 14%;
+    --background: 216 14% 96%;
+    --foreground: 216 28% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 216 28% 12%;
+    --primary: 216 52% 24%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 216 12% 92%;
+    --secondary-foreground: 216 28% 12%;
+    --muted: 216 8% 93%;
+    --muted-foreground: 216 10% 48%;
+    --accent: 24 85% 52%;
+    --accent-foreground: 0 0% 100%;
+    --border: 216 10% 89%;
+    --input: 216 10% 89%;
+    --ring: 216 52% 24%;
+    --champagne: 216 14% 94%;
+    --bronze: 216 14% 48%;
+    --truffle: 216 22% 12%;
   }
 
+  /* ── Women: warm, soft blush, rose-gold ── */
   :root[data-gender="female"]:not(.dark) {
-    --background: 340 16% 94%;
-    --foreground: 340 28% 14%;
-    --card: 340 20% 98%;
-    --card-foreground: 340 28% 14%;
-    --primary: 340 42% 33%;
-    --primary-foreground: 340 25% 97%;
-    --secondary: 340 18% 91%;
-    --secondary-foreground: 340 28% 14%;
-    --muted: 340 12% 92%;
-    --muted-foreground: 340 10% 47%;
-    --accent: 10 50% 65%;
-    --accent-foreground: 340 28% 14%;
-    --border: 340 14% 88%;
-    --input: 340 14% 88%;
-    --ring: 340 42% 33%;
-    --champagne: 340 20% 94%;
-    --bronze: 340 18% 48%;
-    --truffle: 340 25% 14%;
+    --background: 20 18% 96%;
+    --foreground: 350 18% 14%;
+    --card: 20 20% 99%;
+    --card-foreground: 350 18% 14%;
+    --primary: 350 32% 30%;
+    --primary-foreground: 20 20% 98%;
+    --secondary: 20 14% 93%;
+    --secondary-foreground: 350 18% 14%;
+    --muted: 20 10% 94%;
+    --muted-foreground: 350 8% 48%;
+    --accent: 18 55% 60%;
+    --accent-foreground: 0 0% 100%;
+    --border: 20 12% 90%;
+    --input: 20 12% 90%;
+    --ring: 350 32% 30%;
+    --champagne: 20 24% 95%;
+    --bronze: 350 14% 52%;
+    --truffle: 350 18% 14%;
   }
 }
 
@@ -143,10 +146,13 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
+    letter-spacing: -0.01em;
   }
 }
 
@@ -168,17 +174,6 @@
   .card-shadow-hover {
     box-shadow: var(--shadow-card-hover);
   }
-
-  .glass-orange {
-    background: hsl(30 60% 92% / 0.65);
-    border: 1px solid hsl(30 40% 85% / 0.5);
-    border-radius: 1.25rem;
-  }
-
-  .dark .glass-orange {
-    background: hsl(25 40% 20% / 0.55);
-    border-color: hsl(25 30% 30% / 0.4);
-  }
 }
 
 @keyframes shimmer {
@@ -198,26 +193,26 @@
 }
 
 @keyframes fade-in-up {
-  0% { opacity: 0; transform: translateY(16px); }
+  0% { opacity: 0; transform: translateY(12px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes jelly {
   0% { transform: scale(1, 1); }
-  20% { transform: scale(1.15, 0.85); }
-  40% { transform: scale(0.85, 1.12); }
-  55% { transform: scale(1.08, 0.92); }
-  70% { transform: scale(0.95, 1.04); }
-  85% { transform: scale(1.02, 0.98); }
+  20% { transform: scale(1.12, 0.88); }
+  40% { transform: scale(0.88, 1.1); }
+  55% { transform: scale(1.06, 0.94); }
+  70% { transform: scale(0.97, 1.03); }
+  85% { transform: scale(1.01, 0.99); }
   100% { transform: scale(1, 1); }
 }
 
 @keyframes jelly-container {
   0% { transform: scaleY(1) scaleX(1); }
-  15% { transform: scaleY(0.96) scaleX(1.02); }
-  30% { transform: scaleY(1.03) scaleX(0.98); }
-  45% { transform: scaleY(0.98) scaleX(1.01); }
-  60% { transform: scaleY(1.01) scaleX(0.995); }
-  80% { transform: scaleY(0.998) scaleX(1.002); }
+  15% { transform: scaleY(0.97) scaleX(1.01); }
+  30% { transform: scaleY(1.02) scaleX(0.99); }
+  45% { transform: scaleY(0.99) scaleX(1.005); }
+  60% { transform: scaleY(1.005) scaleX(0.998); }
+  80% { transform: scaleY(0.999) scaleX(1.001); }
   100% { transform: scaleY(1) scaleX(1); }
 }
