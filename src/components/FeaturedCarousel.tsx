@@ -18,13 +18,13 @@ const FeaturedCarousel = ({ salons }: FeaturedCarouselProps) => {
 
   useEffect(() => {
     if (paused) return;
-    const t = setInterval(next, 4000);
+    const t = setInterval(next, 4500);
     return () => clearInterval(t);
   }, [paused, next]);
 
   return (
     <div
-      className="relative overflow-hidden rounded-2xl mx-4"
+      className="relative overflow-hidden rounded-2xl mx-5"
       onTouchStart={() => setPaused(true)}
       onTouchEnd={() => setPaused(false)}
     >
@@ -33,36 +33,35 @@ const FeaturedCarousel = ({ salons }: FeaturedCarouselProps) => {
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {salons.map((salon) => (
-          <div key={salon.id} className="w-full flex-shrink-0 relative aspect-[16/10]">
+          <div
+            key={salon.id}
+            className="w-full flex-shrink-0 relative aspect-[16/10] cursor-pointer"
+            onClick={() => navigate(`/salon/${salon.id}`)}
+          >
             <img
               src={salon.image}
               alt={salon.name}
               className="w-full h-full object-cover"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/15 to-transparent" />
 
             {salon.offer && (
-              <span className="absolute top-3 left-3 bg-accent text-accent-foreground text-xs font-semibold font-heading px-3 py-1 rounded-full">
+              <span className="absolute top-3 left-3 bg-accent text-accent-foreground text-[11px] font-heading font-semibold px-3 py-1 rounded-lg">
                 {salon.offer}
               </span>
             )}
 
-            <div className="absolute top-3 right-3 bg-card/90 backdrop-blur-sm text-foreground text-xs font-semibold px-2 py-1 rounded-lg flex items-center gap-1">
-              <Star size={12} className="text-accent fill-accent" /> {salon.rating}
+            <div className="absolute top-3 right-3 bg-card/90 backdrop-blur-sm text-foreground text-[11px] font-heading font-semibold px-2 py-1 rounded-lg flex items-center gap-1">
+              <Star size={11} className="text-accent fill-accent" /> {salon.rating}
             </div>
 
             <div className="absolute bottom-0 left-0 right-0 p-4">
-              <h3 className="font-heading font-semibold text-lg text-primary-foreground">{salon.name}</h3>
-              <p className="text-primary-foreground/70 text-xs font-body italic">{salon.tagline}</p>
-              {salon.bookingsThisWeek && (
-                <p className="text-primary-foreground/60 text-[10px] font-body mt-1">
-                  {salon.bookingsThisWeek} bookings this week
-                </p>
-              )}
+              <h3 className="font-heading font-semibold text-[17px] text-primary-foreground leading-tight">{salon.name}</h3>
+              <p className="text-primary-foreground/60 text-[12px] font-body mt-0.5">{salon.tagline}</p>
               <button
-                onClick={() => navigate(`/salon/${salon.id}`)}
-                className="mt-2 bg-primary text-primary-foreground text-sm font-heading font-medium px-5 py-2 rounded-xl transition-transform duration-200 active:scale-95"
+                onClick={(e) => { e.stopPropagation(); navigate(`/salon/${salon.id}`); }}
+                className="mt-2.5 bg-primary-foreground/95 text-foreground text-[13px] font-heading font-semibold px-5 py-2.5 rounded-xl transition-transform duration-200 active:scale-95 min-h-[44px]"
               >
                 Book Now
               </button>
@@ -72,12 +71,13 @@ const FeaturedCarousel = ({ salons }: FeaturedCarouselProps) => {
       </div>
 
       {/* Dots */}
-      <div className="absolute bottom-2 right-4 flex gap-1.5">
+      <div className="absolute bottom-2.5 right-4 flex gap-1.5">
         {salons.map((_, i) => (
-          <div
+          <button
             key={i}
+            onClick={() => setCurrent(i)}
             className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === current ? 'w-4 bg-primary-foreground' : 'w-1.5 bg-primary-foreground/40'
+              i === current ? 'w-5 bg-primary-foreground' : 'w-1.5 bg-primary-foreground/40'
             }`}
           />
         ))}

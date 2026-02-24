@@ -14,9 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['Poppins', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        heading: ['DM Sans', 'sans-serif'],
+        body: ['DM Sans', 'sans-serif'],
+        serif: ['Cormorant Garamond', 'serif'],
         sans: ['Plus Jakarta Sans', 'sans-serif'],
       },
       colors: {
@@ -97,7 +97,7 @@ export default {
           "100%": { transform: "translateY(0)" },
         },
         "fade-in-up": {
-          "0%": { opacity: "0", transform: "translateY(16px)" },
+          "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },

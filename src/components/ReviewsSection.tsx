@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Star, CheckCircle2 } from 'lucide-react';
+import { Star, CheckCircle2, ThumbsUp } from 'lucide-react';
 import type { Artist, Review } from '@/types/salon';
 
 interface ReviewsSectionProps {
@@ -29,17 +29,17 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
 
   useEffect(() => {
     setIsJiggling(true);
-    const timer = setTimeout(() => setIsJiggling(false), 700);
+    const timer = setTimeout(() => setIsJiggling(false), 600);
     return () => clearTimeout(timer);
   }, [selectedArtist]);
 
   return (
-    <div className="animate-fade-in-up bg-background" style={{ animationDuration: '300ms' }}>
-      {/* Our Stylists Header */}
+    <div className="animate-fade-in-up" style={{ animationDuration: '250ms' }}>
+      {/* Stylists Header */}
       <div className="px-5 pt-5 pb-1">
         <div className="flex items-baseline justify-between mb-4">
-          <h2 className="font-serif text-xl text-foreground italic">Our Stylists</h2>
-          <button className="text-[11px] font-sans font-semibold uppercase tracking-widest text-muted-foreground">
+          <h2 className="font-serif text-[20px] text-foreground italic">Our Stylists</h2>
+          <button className="text-[11px] font-heading font-semibold uppercase tracking-wider text-muted-foreground">
             View All
           </button>
         </div>
@@ -51,17 +51,16 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
             className="flex flex-col items-center flex-shrink-0 gap-1.5"
           >
             <div
-              className={`rounded-xl flex items-center justify-center font-sans font-bold text-foreground transition-all duration-300 ease-out ${
+              className={`rounded-xl flex items-center justify-center font-heading font-bold text-foreground transition-all duration-300 ease-out ${
                 !selectedArtist
-                  ? 'w-16 h-16 sm:w-20 sm:h-20 text-sm ring-2 ring-accent/50 shadow-md bg-secondary'
-                  : 'w-14 h-14 sm:w-16 sm:h-16 text-xs bg-card border border-border'
+                  ? 'w-[64px] h-[64px] text-[13px] ring-2 ring-primary ring-offset-2 ring-offset-background bg-secondary'
+                  : 'w-[52px] h-[52px] text-[11px] bg-card border border-border'
               }`}
               style={!selectedArtist && isJiggling ? { animation: 'jelly 0.55s ease', transformOrigin: 'bottom center' } : undefined}
             >
               ALL
             </div>
-            <span className={`text-[11px] font-body ${!selectedArtist ? 'text-primary font-medium' : 'text-muted-foreground'}`}>All</span>
-            {!selectedArtist && <div className="w-1.5 h-1.5 rounded-full bg-accent -mt-0.5" />}
+            <span className={`text-[11px] font-heading ${!selectedArtist ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>All</span>
           </button>
 
           {artists.map((artist) => {
@@ -75,15 +74,14 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
                 <div
                   className={`rounded-xl overflow-hidden transition-all duration-300 ease-out ${
                     isSelected
-                      ? 'w-16 h-16 sm:w-20 sm:h-20 ring-2 ring-accent/50 shadow-md'
-                      : 'w-14 h-14 sm:w-16 sm:h-16 border border-border'
+                      ? 'w-[64px] h-[64px] ring-2 ring-primary ring-offset-2 ring-offset-background'
+                      : 'w-[52px] h-[52px] border border-border'
                   }`}
                   style={isSelected && isJiggling ? { animation: 'jelly 0.55s ease', transformOrigin: 'bottom center' } : undefined}
                 >
                   <img src={artist.avatar} alt={artist.name} className="w-full h-full object-cover" />
                 </div>
-                <span className={`text-[11px] font-body whitespace-nowrap ${isSelected ? 'text-primary font-medium' : 'text-muted-foreground'}`}>{artist.name}</span>
-                {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-accent -mt-0.5" />}
+                <span className={`text-[11px] font-heading whitespace-nowrap ${isSelected ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>{artist.name}</span>
               </button>
             );
           })}
@@ -92,24 +90,25 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
 
       {/* Reviews Container */}
       <div
-        className="mx-3 mb-4 bg-card rounded-2xl border border-border card-shadow"
+        className="mx-4 mb-4 bg-card rounded-2xl border border-border card-shadow"
         style={{
           animation: isJiggling ? 'jelly-container 0.5s ease' : 'none',
           transformOrigin: 'top center',
         }}
       >
         <div className="px-5 pt-5 pb-3">
+          {/* Selected artist profile */}
           {currentArtist && (
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden flex-shrink-0 border border-border">
+            <div className="flex items-center gap-4 mb-5 pb-4 border-b border-border">
+              <div className="w-[72px] h-[72px] rounded-xl overflow-hidden flex-shrink-0 ring-1 ring-border">
                 <img src={currentArtist.avatar} alt={currentArtist.name} className="w-full h-full object-cover" />
               </div>
               <div className="flex-1 min-w-0">
-                <span className="font-sans font-bold text-base block truncate text-foreground">
+                <span className="font-heading font-bold text-[16px] block truncate text-foreground">
                   {currentArtist.name}
                 </span>
-                <p className="text-xs font-body text-muted-foreground mt-0.5">{currentArtist.specialty}</p>
-                <div className="flex items-center gap-1 mt-1.5">
+                <p className="text-[13px] font-body text-muted-foreground mt-0.5">{currentArtist.specialty}</p>
+                <div className="flex items-center gap-1 mt-2">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
@@ -117,85 +116,89 @@ const ReviewsSection = ({ artists, reviews, selectedArtist, onSelectArtist }: Re
                       className={i < Math.round(Number(avgRating)) ? 'text-accent fill-accent' : 'text-border fill-border'}
                     />
                   ))}
-                  <span className="text-sm font-sans font-semibold ml-1 text-accent">{avgRating}</span>
+                  <span className="text-[13px] font-heading font-semibold ml-1.5 text-foreground">{avgRating}</span>
                 </div>
               </div>
             </div>
           )}
 
           <div className="flex items-center justify-between">
-            <h3 className="font-heading font-semibold text-base text-foreground">
+            <h3 className="font-heading font-semibold text-[15px] text-foreground">
               {currentArtist ? 'Reviews' : 'All Reviews'}
             </h3>
             <div className="flex items-center gap-1.5 rounded-xl px-3 py-1.5 bg-secondary border border-border">
-              <Star size={13} className="text-accent fill-accent" />
-              <span className="text-sm font-sans font-bold text-foreground">{avgRating}</span>
+              <Star size={12} className="text-accent fill-accent" />
+              <span className="text-[13px] font-heading font-bold text-foreground">{avgRating}</span>
+              <span className="text-[11px] text-muted-foreground">({filteredReviews.length})</span>
             </div>
           </div>
         </div>
 
         {/* Review Cards */}
-        <div className="space-y-2 px-2 pb-3">
+        <div className="space-y-2 px-2.5 pb-3">
           {filteredReviews.map((review, index) => (
             <div
               key={review.id}
               className="rounded-2xl p-4 bg-background"
-              style={{ animation: `fade-in-up 0.4s ease-out ${index * 80}ms both` }}
+              style={{ animation: `fade-in-up 0.35s ease-out ${index * 60}ms both` }}
             >
-              <div className="flex items-start justify-between mb-2.5">
+              <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-secondary border border-border">
-                    <span className="font-heading text-sm font-semibold text-foreground">
-                      {review.userName.charAt(0)}
-                    </span>
+                  <div className="w-9 h-9 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-border">
+                    <img src={review.userAvatar} alt={review.userName} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <div className="flex items-center gap-1.5">
-                      <span className="font-sans font-semibold text-sm text-foreground">{review.userName}</span>
-                      <CheckCircle2 size={13} className="text-accent" />
+                      <span className="font-heading font-semibold text-[13px] text-foreground">{review.userName}</span>
+                      <CheckCircle2 size={12} className="text-success" />
                     </div>
-                    <div className="flex items-center gap-0.5 mt-1">
+                    <div className="flex items-center gap-0.5 mt-0.5">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star
                           key={i}
-                          size={11}
+                          size={10}
                           className={i < review.rating ? 'text-accent fill-accent' : 'text-border fill-border'}
                         />
                       ))}
                     </div>
                   </div>
                 </div>
-                <span className="text-[10px] font-sans uppercase tracking-wider text-muted-foreground whitespace-nowrap pt-1">
+                <span className="text-[10px] font-heading uppercase tracking-wider text-muted-foreground whitespace-nowrap pt-1">
                   {review.date}
                 </span>
               </div>
 
-              <div className="mb-2.5">
-                <span className="inline-block text-[10px] font-sans font-semibold text-foreground uppercase tracking-wider px-3 py-1 rounded-lg bg-secondary border border-border">
+              <div className="mb-2">
+                <span className="inline-block text-[10px] font-heading font-semibold text-primary uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-primary/6 border border-primary/10">
                   {review.service}
                 </span>
               </div>
 
-              <p className="text-sm font-body text-muted-foreground leading-relaxed">
-                "{review.text}"
+              <p className="text-[13px] font-body text-muted-foreground leading-relaxed">
+                {review.text}
               </p>
 
               {review.hasPhoto && (
                 <div className="flex gap-2 mt-3 overflow-x-auto scrollbar-hide">
                   {reviewPhotos.map((photo, i) => (
-                    <div key={i} className="w-32 h-32 flex-shrink-0 rounded-xl overflow-hidden">
+                    <div key={i} className="w-28 h-28 flex-shrink-0 rounded-xl overflow-hidden ring-1 ring-border">
                       <img src={photo} alt={`Review photo ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
                     </div>
                   ))}
                 </div>
               )}
+
+              <div className="flex items-center gap-1.5 mt-3 pt-2.5 border-t border-border/50">
+                <ThumbsUp size={12} className="text-muted-foreground" />
+                <span className="text-[11px] font-body text-muted-foreground">{review.helpful} found helpful</span>
+              </div>
             </div>
           ))}
 
           {filteredReviews.length === 0 && (
             <div className="text-center py-14">
-              <p className="font-heading text-base text-muted-foreground">No reviews yet for this stylist</p>
-              <p className="text-xs font-body mt-2 text-muted-foreground">Be the first to share your experience</p>
+              <p className="font-heading text-[14px] text-muted-foreground">No reviews yet</p>
+              <p className="text-[12px] font-body mt-1.5 text-muted-foreground">Be the first to share your experience</p>
             </div>
           )}
         </div>
