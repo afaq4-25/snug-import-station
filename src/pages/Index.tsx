@@ -120,7 +120,7 @@ const HomePage = () => {
 
       {/* Gender Toggle */}
       <div className="px-5 pb-3">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-[3px]">
           <span className="font-body text-base text-[#264d73]">Categories for
           </span>
           <div className="relative flex bg-card border border-border rounded-xl p-0.5">
